@@ -7,7 +7,7 @@ Clone the project
 ```
 
 ```
-Open the index.html file int your browser
+Open the index.html file in your browser
 ```
 
 ## Content of the project
