@@ -9,6 +9,35 @@ recognition.onresult = function(event) {
     }
   }
   document.querySelector('#transcription').textContent = transcription;
+
+  // Charge une musique en fonction du nom donné par l'utilisateur
+  if (transcription.includes('musique')) {
+    if (transcription.includes('classique')) {
+      let audio = new Audio('musique/test.mp3');
+      let playButton = document.querySelector('#play-button');
+      if (playButton) {
+        playButton.addEventListener('click', function() {
+          audio.play();
+        });
+      }
+    } else if (transcription.includes('jazz')) {
+      let audio = new Audio('musique-jazz.mp3');
+      let playButton = document.querySelector('#play-button');
+      if (playButton) {
+        playButton.addEventListener('click', function() {
+          audio.play();
+        });
+      }
+    } else if (transcription.includes('rock')) {
+      let audio = new Audio('musique-rock.mp3');
+      let playButton = document.querySelector('#play-button');
+      if (playButton) {
+        playButton.addEventListener('click', function() {
+          audio.play();
+        });
+      }
+    }
+  }
 }
 
 recognition.start();
