@@ -1,6 +1,9 @@
 const recognition = new webkitSpeechRecognition();
 recognition.continuous = true;
 recognition.interimResults = true;
+
+let audioPlayer = null; // variable pour stocker le lecteur audio actuel
+
 recognition.onresult = function(event) {
   let transcription = "";
   for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -13,29 +16,29 @@ recognition.onresult = function(event) {
   // Charge une musique en fonction du nom donné par l'utilisateur
   if (transcription.includes('musique')) {
     if (transcription.includes('classique')) {
-      let audio = new Audio('musique/test.mp3');
-      let playButton = document.querySelector('#play-button');
-      if (playButton) {
-        playButton.addEventListener('click', function() {
-          audio.play();
-        });
+      if (audioPlayer) {
+        audioPlayer.pause(); // arrêter la musique précédente
       }
+      audioPlayer = new Audio('musique/test.mp3');
+      document.querySelector('#play-button').addEventListener('click', function() {
+        audioPlayer.play();
+      });
     } else if (transcription.includes('jazz')) {
-      let audio = new Audio('musique-jazz.mp3');
-      let playButton = document.querySelector('#play-button');
-      if (playButton) {
-        playButton.addEventListener('click', function() {
-          audio.play();
-        });
+      if (audioPlayer) {
+        audioPlayer.pause(); // arrêter la musique précédente
       }
+      audioPlayer = new Audio('musique/Tom Sawyer - musique de générique Français.mp3');
+      document.querySelector('#play-button').addEventListener('click', function() {
+        audioPlayer.play();
+      });
     } else if (transcription.includes('rock')) {
-      let audio = new Audio('musique-rock.mp3');
-      let playButton = document.querySelector('#play-button');
-      if (playButton) {
-        playButton.addEventListener('click', function() {
-          audio.play();
-        });
+      if (audioPlayer) {
+        audioPlayer.pause(); // arrêter la musique précédente
       }
+      audioPlayer = new Audio('musique-rock.mp3');
+      document.querySelector('#play-button').addEventListener('click', function() {
+        audioPlayer.play();
+      });
     }
   }
 }
