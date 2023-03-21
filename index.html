@@ -1,18 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html class="no-js" lang="">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ml5.js/0.7.2/ml5.min.js%22%3E"></script>
-    <title>Document</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Ai - Chat sbaliyun</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="img/favicon.png">
+  <script>
+    const synth = window.speechSynthesis;
+  </script>
+  <script>
+    const recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.onresult = function (event) {
+      let transcription = "";
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        if (event.results[i].isFinal) {
+          transcription += event.results[i][0].transcript;
+        }
+      }
+      testson = transcription;
+      console.log(testson);
+    }
+
+    recognition.start();
+
+    var testson = "";
+    async function callCHATGPT() {
+      var responseText1 = document.getElementById("chatgpt-response");
+      responseText1.innerHTML = ""
+      function printMessage(message) {
+        var responseText = document.getElementById("chatgpt-response");
+        var index = 0;
+
+        var interval = setInterval(function () {
+          responseText.innerHTML += message[index];
+          index++;
+
+          
+          if (index >= message.length) {
+            clearInterval(interval);
+          }
+        },
+          20);
+      }
+      var xhr = new XMLHttpRequest();
+      var url = "https://api.openai.com/v1/chat/completions";
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.setRequestHeader("Authorization", "Bearer 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");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var json = JSON.parse(xhr.responseText);
+          var response = json.choices[0].message.content;
+
+
+          var responseText = document.getElementById("chatgpt-response");
+          var utterance = new SpeechSynthesisUtterance(response);
+          synth.speak(utterance);
+
+
+          var index = 0;
+
+          var interval = setInterval(function () {
+            responseText.innerHTML += response[index];
+            index++;
+
+            if (index >= response.length) {
+              clearInterval(interval);
+            }
+          },
+            20);
+        }
+      };
+      var prompt = testson;
+
+      var data = JSON.stringify({
+        "messages": [{ "role": "user", "content": prompt }],
+        "temperature": 0.5,
+        "top_p": 1,
+        "frequency_penalty": 0,
+        "presence_penalty": 0,
+        "model": "gpt-3.5-turbo"
+      });
+      console.log(data);
+      await printMessage('...');
+      await xhr.send(data);
+    }
+  </script>
 </head>
+
 <body>
-
-    
-    <div id="transcription"></div>
-
-    <script src="script.js"></script>
+    <button onclick="callCHATGPT()" autocomplete="off" class="btn btn-large" href="#"
+      style="background-color: #333; color: #f4f4f4; border-radius: 10px">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Click to
+      <br>Answer</button>
+  </div>
+  <textarea class="form-control" id="chatgpt-response" placeholder="Votre résultat va apparaitre ici" rows="26"
+    resize="none"
+    style="width: 150%;height: auto; margin: 0 auto; background-color: #f4f4f4; color: #333; border: 1px solid #ccc; border-radius: 10px; overflow: scroll;"
+    readonly="true"></textarea>
     
 </body>
+
+<a href="musique.html">Lire Des Musiques</a>
+
 </html>
