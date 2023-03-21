@@ -8,6 +8,56 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="img/favicon.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .btn {
+      display: block;
+      margin: 40px auto;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #f4f4f4;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      opacity: 0.8;
+    }
+
+    #chatgpt-response {
+      width: 100%;
+      height: 500px;
+      margin: 20px auto;
+      background-color: #f4f4f4;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    a {
+      display: block;
+      margin: 20px auto;
+      text-align: center;
+      font-size: 18px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #666;
+    }
+    </style>
   <script>
     const synth = window.speechSynthesis;
   </script>
@@ -51,7 +101,7 @@
       var url = "https://api.openai.com/v1/chat/completions";
       xhr.open("POST", url, true);
       xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.setRequestHeader("Authorization", "Bearer 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");
+      xhr.setRequestHeader("Authorization", "Bearer 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");
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
           var json = JSON.parse(xhr.responseText);
@@ -96,8 +146,7 @@
 <body>
     <button onclick="callCHATGPT()" autocomplete="off" class="btn btn-large" href="#"
       style="background-color: #333; color: #f4f4f4; border-radius: 10px">
-      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Click to
-      <br>Answer</button>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Clique Pour Envoyer</button>
   </div>
   <textarea class="form-control" id="chatgpt-response" placeholder="Votre résultat va apparaitre ici" rows="26"
     resize="none"

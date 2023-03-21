@@ -19,28 +19,36 @@ recognition.onresult = function(event) {
       if (audioPlayer) {
         audioPlayer.pause(); // arrêter la musique précédente
       }
-      audioPlayer = new Audio('musique/test.mp3');
+      audioPlayer = new Audio('musique/classique.mp3');
       document.querySelector('#play-button').addEventListener('click', function() {
         audioPlayer.play();
       });
-    } else if (transcription.includes('jazz')) {
+    } else if (transcription.includes('rap')) {
       if (audioPlayer) {
         audioPlayer.pause(); // arrêter la musique précédente
       }
-      audioPlayer = new Audio('musique/Tom Sawyer - musique de générique Français.mp3');
+      audioPlayer = new Audio('musique/rap.mp3');
       document.querySelector('#play-button').addEventListener('click', function() {
         audioPlayer.play();
       });
-    } else if (transcription.includes('rock')) {
+    } else if (transcription.includes('pop')) {
       if (audioPlayer) {
         audioPlayer.pause(); // arrêter la musique précédente
       }
-      audioPlayer = new Audio('musique-rock.mp3');
+      audioPlayer = new Audio('musique/pop.mp3');
       document.querySelector('#play-button').addEventListener('click', function() {
         audioPlayer.play();
       });
-    }
+    } else if (transcription.includes('hip-hop')) {
+      if (audioPlayer) {
+        audioPlayer.pause(); // arrêter la musique précédente
+      }
+      audioPlayer = new Audio('musique/hiphop.mp3');
+      document.querySelector('#play-button').addEventListener('click', function() {
+        audioPlayer.play();
+      });
   }
+}
 }
 
 recognition.start();
